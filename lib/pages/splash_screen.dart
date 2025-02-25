@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:tiket_wisata/constants/color.dart';
+import 'package:tiket_wisata/pages/login_form.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -9,17 +13,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/home');
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginForm()),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Image.asset('assets/images/logo.png'),
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: MyColors.background,
+        body: Center(child: Image.asset('assets/images/aliens.png')),
       ),
     );
   }
