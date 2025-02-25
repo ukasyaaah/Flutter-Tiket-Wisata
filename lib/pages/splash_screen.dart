@@ -26,7 +26,18 @@ class _SplashScreenState extends State<SplashScreen> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: MyColors.background,
-        body: Center(child: Image.asset('assets/images/aliens.png')),
+        body: Center(
+          child: Column(
+            children: [
+              Image.asset('assets/images/aliens.png'),
+              // SizedBox(height: 1),
+              Text(
+                'Ticket Wisata App',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

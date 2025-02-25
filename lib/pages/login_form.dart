@@ -7,6 +7,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Padding(
@@ -30,6 +31,7 @@ class LoginForm extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                   icon: Icon(Icons.supervised_user_circle),
+                  iconColor: MyColors.ternary,
                   labelText: 'Username / Email',
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
@@ -42,6 +44,8 @@ class LoginForm extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   icon: Icon(Icons.key),
+                  iconColor: MyColors.ternary,
+
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
@@ -54,10 +58,15 @@ class LoginForm extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed('/mainpage');
                 },
+
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(MyColors.ternary),
+                ),
                 child: Text(
                   'Login',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    fontSize: 15,
                     color: MyColors.secondary,
                   ),
                 ),
