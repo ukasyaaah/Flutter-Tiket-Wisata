@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tiket_wisata/constants/color.dart';
+import 'package:tiket_wisata/gen/assets.gen.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -24,14 +26,16 @@ class LoginForm extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Image.asset('assets/images/login.png'),
+
+              Assets.images.loginPng.image(),
               SizedBox(height: 20),
 
               TextField(
                 decoration: InputDecoration(
+
                   icon: Icon(Icons.supervised_user_circle),
                   iconColor: MyColors.ternary,
+
                   labelText: 'Username / Email',
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
