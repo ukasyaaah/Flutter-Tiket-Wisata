@@ -2,76 +2,135 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tiket_wisata/constants/color.dart';
 import 'package:tiket_wisata/gen/assets.gen.dart';
+import 'package:tiket_wisata/widgets/kolom_input.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  TextEditingController _email = TextEditingController();
+
+  TextEditingController _password = TextEditingController();
+
+  bool isHidden = true;
+
+  @override
+  void initState() {
+    isHidden = true;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MyColors.background,
       body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: ListView(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Text(
-                  'Login to Your Account',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    color: MyColors.secondary,
-                    fontSize: 25,
+              Container(
+                alignment: Alignment.center,
+                width: 400,
+                // height: 500,
+                decoration: BoxDecoration(
+                  // color: Colors.black,
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                    style: BorderStyle.solid,
+                    strokeAlign: BorderSide.strokeAlignOutside,
                   ),
+                  borderRadius: BorderRadius.circular(6),
                 ),
-              ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Ticket Wisata',
+                        style: GoogleFonts.instrumentSerif(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                          color: MyColors.secondary,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      KolomInput(
+                        isHidding: false,
+                        hintText: 'Email',
+                        prefixIcon: Icons.email,
+                        controller: _email,
+                      ),
+                      SizedBox(height: 14),
+                      KolomInput(
+                        isHidding: isHidden,
+                        hintText: 'Password',
+                        prefixIcon: Icons.lock,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            if (isHidden == true) {
+                              isHidden = false;
+                            } else {
+                              isHidden = true;
+                            }
+                            setState(() {});
+                          },
+                          icon: Icon(Icons.remove_red_eye),
+                        ),
+                        controller: _password,
+                      ),
+                      SizedBox(height: 14),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Belum punya akun?",
+                            style: GoogleFonts.inter(
+                              fontSize: 14,
+                              color: MyColors.secondary,
+                            ),
+                          ),
 
-              Assets.images.loginPng.image(),
-              SizedBox(height: 20),
-
-              TextField(
-                decoration: InputDecoration(
-
-                  icon: Icon(Icons.supervised_user_circle),
-                  iconColor: MyColors.ternary,
-
-                  labelText: 'Username / Email',
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: MyColors.secondary),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  icon: Icon(Icons.key),
-                  iconColor: MyColors.ternary,
-
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: MyColors.secondary),
-                  ),
-                ),
-              ),
-              SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/mainpage');
-                },
-
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(MyColors.ternary),
-                ),
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: MyColors.secondary,
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              shape: CircleBorder(eccentricity: 0),
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              "Daftar dulu",
+                              style: GoogleFonts.inter(
+                                fontSize: 14,
+                                color: MyColors.secondary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 14),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: MyColors.ternary,
+                        ),
+                        onPressed: () {},
+                        child: Text('Login'),
+                      ),
+                    ],
                   ),
                 ),
               ),
