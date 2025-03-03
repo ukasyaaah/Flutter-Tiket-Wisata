@@ -4,6 +4,7 @@ import 'package:tiket_wisata/constants/color.dart';
 import 'package:tiket_wisata/gen/assets.gen.dart';
 import 'package:tiket_wisata/widgets/kolom_input.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tiket_wisata/widgets/tombol.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -95,6 +96,18 @@ class _LoginFormState extends State<LoginForm> {
                         controller: _password,
                       ),
                       SizedBox(height: 14),
+                      Tombol(
+                        height: 40,
+                        width: 400,
+                        bgcolor: MyColors.ternary,
+                        radiusCircular: 6,
+                        borderColor: MyColors.secondary,
+                        text: 'Login',
+                        onPressed:
+                            () => Navigator.of(context).pushNamed('/mainpage'),
+                      ),
+                      SizedBox(height: 14),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -121,14 +134,6 @@ class _LoginFormState extends State<LoginForm> {
                             ),
                           ),
                         ],
-                      ),
-                      SizedBox(height: 14),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: MyColors.ternary,
-                        ),
-                        onPressed: () {},
-                        child: Text('Login'),
                       ),
                     ],
                   ),
