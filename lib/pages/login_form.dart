@@ -107,7 +107,6 @@ class _LoginFormState extends State<LoginForm> {
                             () => Navigator.of(context).pushNamed('/mainpage'),
                       ),
                       SizedBox(height: 14),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
