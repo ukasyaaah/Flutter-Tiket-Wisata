@@ -62,7 +62,7 @@ class _LoginFormState extends State<LoginForm> {
                   child: Column(
                     children: [
                       Text(
-                        'Ticket Wisata',
+                        'Tiket Wisata',
                         style: GoogleFonts.instrumentSerif(
                           fontSize: 48,
                           fontWeight: FontWeight.bold,
@@ -97,6 +97,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                       SizedBox(height: 14),
                       Tombol(
+                        txtColor: MyColors.background,
                         height: 40,
                         width: 400,
                         bgcolor: MyColors.ternary,
@@ -104,7 +105,10 @@ class _LoginFormState extends State<LoginForm> {
                         borderColor: MyColors.secondary,
                         text: 'Login',
                         onPressed:
-                            () => Navigator.of(context).pushNamed('/mainpage'),
+                            () => Navigator.pushReplacementNamed(
+                              context,
+                              '/mainpage',
+                            ),
                       ),
                       SizedBox(height: 14),
                       Row(

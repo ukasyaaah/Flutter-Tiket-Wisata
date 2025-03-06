@@ -1,119 +1,297 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiket_wisata/constants/color.dart';
+import 'package:tiket_wisata/pages/detail_order_page.dart';
+
 import 'package:tiket_wisata/widgets/kolom_input.dart';
 import 'package:tiket_wisata/widgets/tombol.dart';
 
-class OrderPage extends StatelessWidget {
-  const OrderPage({super.key});
+class OrderPage extends StatefulWidget {
+  OrderPage({super.key});
+
+  @override
+  State<OrderPage> createState() => _OrderPageState();
+}
+
+class _OrderPageState extends State<OrderPage> {
+  List<Map<String, dynamic>> tikets = [
+    {
+      'nama': 'Gunung Rinjani',
+      'price': 20000,
+      'category': 'Mancanegara',
+      'count': 0,
+    },
+    {
+      'nama': 'Gunung Rinjani',
+      'price': 20000,
+      'category': 'Nusantara',
+      'count': 0,
+    },
+    {
+      'nama': 'Gunung Rinjani',
+      'price': 20000,
+      'category': 'Popular',
+      'count': 0,
+    },
+    {
+      'nama': 'Gunung Rinjani',
+      'price': 20000,
+      'category': 'Popular',
+      'count': 0,
+    },
+  ];
+
+  List<Map<String, dynamic>> grid = [
+    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
+    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
+    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
+    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
+    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
+  ];
+  void updateCount(int index, int value) {
+    setState(() {
+      tikets[index]['count'] = (tikets[index]['count'] + value).clamp(0, 99);
+    });
+  }
+
+  void navigateToDetailOrder() {
+    // Filter only tickets with count > 0
+    final selectedTickets =
+        tikets.where((ticket) => ticket['count'] > 0).toList();
+
+    // Calculate total amount
+    final totalAmount = tikets.fold(
+      0.0,
+      (sum, ticket) => sum + (ticket['price'] * ticket['count']),
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => DetailOrderPage(
+              selectedTickets: selectedTickets,
+              totalAmount: totalAmount,
+            ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: MyColors.background,
-        appBar: AppBar(
-          leading: SizedBox(
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 20,
-                backgroundColor: MyColors.secondary,
-              ),
-
-              contentPadding: EdgeInsets.only(top: 12, left: 12),
-              title: Text('Selamat Pagi'),
-              titleTextStyle: GoogleFonts.inter(fontSize: 14),
-              subtitle: Text('Ukhasyah'),
-              subtitleTextStyle: GoogleFonts.inter(
+    return Scaffold(
+      backgroundColor: MyColors.background,
+      appBar: AppBar(
+        leading: SizedBox(
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 20,
+              backgroundColor: MyColors.secondary,
+            ),
+            contentPadding: EdgeInsets.only(top: 12, left: 12),
+            title: Text('Selamat Pagi', style: GoogleFonts.inter(fontSize: 14)),
+            subtitle: Text(
+              'Ukhasyah',
+              style: GoogleFonts.inter(
                 fontWeight: FontWeight.w600,
                 fontSize: 21,
               ),
             ),
           ),
-
-          leadingWidth: 250,
-          toolbarHeight: 80,
-          backgroundColor: MyColors.ternary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
-          ),
         ),
-
-        body: Center(
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    // color: MyColors.ternary,
-                    border: Border.all(
-                      style: BorderStyle.solid,
-                      strokeAlign: BorderSide.strokeAlignCenter,
-                      color: MyColors.secondary,
-                      width: 0.5,
+        leadingWidth: 250,
+        toolbarHeight: 80,
+        backgroundColor: MyColors.ternary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ListView(
+          children: [
+            Text(
+              'Destinasi Populer',
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: grid.length,
+                itemBuilder:
+                    (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Container(
+                        width: 150,
+                        alignment: Alignment.bottomLeft,
+                        decoration: BoxDecoration(
+                          color: MyColors.secondary,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(grid[index]['gambar']),
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        padding: EdgeInsets.all(12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              grid[index]['judul'],
+                              style: GoogleFonts.inter(
+                                color: MyColors.background,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(height: 50),
+                            Icon(
+                              Icons.arrow_outward,
+                              color: MyColors.background,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            SizedBox(height: 12),
+            Text(
+              'Penjualan',
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(height: 12),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: tikets.length,
+              itemBuilder: (context, index) {
+                final tiket = tikets[index];
+
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
+                  elevation: 2,
+                  margin: EdgeInsets.only(bottom: 12),
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Dari',
-                          style: GoogleFonts.inter(fontWeight: FontWeight.w600),
+                          tiket['nama'], // Nama tiket
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
                         ),
-                        SizedBox(height: 12),
-                        KolomInput(
-                          isHidding: false,
-                          hintText: 'Semarang',
-                          prefixIcon: Icons.flight_outlined,
-                          // controller: controller,
-                        ),
-                        SizedBox(height: 20),
                         Text(
-                          'Ke',
-                          style: GoogleFonts.inter(fontWeight: FontWeight.w600),
+                          tiket['category'],
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                          ),
                         ),
-                        SizedBox(height: 12),
-                        KolomInput(
-                          isHidding: false,
-                          hintText: 'Nusa Tenggara Barat',
-                          prefixIcon: Icons.flight_land_sharp,
-                          // controller: controller,
-                        ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 8),
                         Text(
-                          'Tanggal',
-                          style: GoogleFonts.inter(fontWeight: FontWeight.w600),
+                          'Rp ${tiket['price']}',
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        SizedBox(height: 12),
-                        KolomInput(
-                          isHidding: false,
-                          hintText: '12 Maret 2026',
-                          prefixIcon: Icons.calendar_month_rounded,
-                          // controller: controller,
-                        ),
-
-                        SizedBox(height: 20),
-                        Tombol(
-                          height: 40,
-                          width: 100,
-                          bgcolor: MyColors.ternary,
-                          radiusCircular: 6,
-                          borderColor: MyColors.secondary,
-                          text: 'Pesan',
-                          onPressed: () {},
+                        SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.shade300),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.remove, color: Colors.red),
+                                    onPressed: () => updateCount(index, -1),
+                                  ),
+                                  Text(
+                                    '${tiket['count']}',
+                                    style: GoogleFonts.inter(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.add, color: Colors.green),
+                                    onPressed: () => updateCount(index, 1),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              'Rp ${tiket['price'] * tiket['count']}', // Perhitungan harga total
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
+                );
+              },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                {
+                  // Calculate total amount to check if any tickets are selected
+                  final double totalAmount = tikets.fold(
+                    0.0,
+                    (sum, ticket) => sum + (ticket['price'] * ticket['count']),
+                  );
+
+                  if (totalAmount <= 0) {
+                    // Show a snackbar or alert if no tickets selected
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Silakan pilih tiket terlebih dahulu'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  } else {
+                    // Call the navigation function
+                    navigateToDetailOrder();
+                  }
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: MyColors.ternary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
-            ],
-          ),
+              child: Text(
+                'Process',
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: MyColors.background,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

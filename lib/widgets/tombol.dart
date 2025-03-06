@@ -11,6 +11,7 @@ class Tombol extends StatelessWidget {
     required this.bgcolor,
     required this.radiusCircular,
     required this.borderColor,
+    required this.txtColor,
     required this.text,
     required this.onPressed,
   });
@@ -20,6 +21,7 @@ class Tombol extends StatelessWidget {
   final Color bgcolor;
   final double radiusCircular;
   final Color borderColor;
+  final Color txtColor;
 
   final String text;
   final VoidCallback onPressed;
@@ -38,7 +40,7 @@ class Tombol extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text, style: GoogleFonts.inter(color: MyColors.secondary)),
+        child: Text(text, style: GoogleFonts.inter(color: txtColor)),
       ),
     );
   }
