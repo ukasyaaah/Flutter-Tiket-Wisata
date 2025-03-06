@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiket_wisata/constants/color.dart';
 import 'package:tiket_wisata/pages/main/history.dart';
-import 'package:tiket_wisata/pages/main/home.dart';
+import 'package:tiket_wisata/pages/main/order.dart';
 import 'package:tiket_wisata/pages/main/settings.dart';
 import 'package:tiket_wisata/widgets/navbar.dart';
 
@@ -16,7 +16,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int curent = 0;
 
-  List pages = [Home(), History(), Settings()];
+  List pages = [OrderPage(), History(), Settings()];
 
   @override
   void initState() {

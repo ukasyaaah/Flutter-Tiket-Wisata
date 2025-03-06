@@ -8,14 +8,14 @@ class KolomInput extends StatelessWidget {
     required this.hintText,
     required this.prefixIcon,
     this.suffixIcon,
-    required this.controller,
+    this.controller,
   });
 
   final bool isHidding;
   final IconData prefixIcon;
   final IconButton? suffixIcon;
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
