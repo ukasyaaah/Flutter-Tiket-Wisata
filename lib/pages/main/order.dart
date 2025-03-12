@@ -41,13 +41,6 @@ class _OrderPageState extends State<OrderPage> {
     },
   ];
 
-  List<Map<String, dynamic>> grid = [
-    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
-    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
-    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
-    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
-    {'judul': 'G. Rinjani', 'gambar': 'assets/images/rinjani.jpg'},
-  ];
   void updateCount(int index, int value) {
     setState(() {
       tikets[index]['count'] = (tikets[index]['count'] + value).clamp(0, 99);
@@ -89,12 +82,19 @@ class _OrderPageState extends State<OrderPage> {
               backgroundColor: MyColors.secondary,
             ),
             contentPadding: EdgeInsets.only(top: 12, left: 12),
-            title: Text('Selamat Pagi', style: GoogleFonts.inter(fontSize: 14)),
+            title: Text(
+              'Selamat Pagi',
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                color: MyColors.background,
+              ),
+            ),
             subtitle: Text(
               'Ukhasyah',
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w600,
                 fontSize: 21,
+                color: MyColors.background,
               ),
             ),
           ),
@@ -110,57 +110,6 @@ class _OrderPageState extends State<OrderPage> {
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: [
-            Text(
-              'Destinasi Populer',
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-              ),
-            ),
-            SizedBox(height: 12),
-            SizedBox(
-              height: 200,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: grid.length,
-                itemBuilder:
-                    (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: Container(
-                        width: 150,
-                        alignment: Alignment.bottomLeft,
-                        decoration: BoxDecoration(
-                          color: MyColors.secondary,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(grid[index]['gambar']),
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                        padding: EdgeInsets.all(12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              grid[index]['judul'],
-                              style: GoogleFonts.inter(
-                                color: MyColors.background,
-                                fontSize: 16,
-                              ),
-                            ),
-                            SizedBox(height: 50),
-                            Icon(
-                              Icons.arrow_outward,
-                              color: MyColors.background,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-              ),
-            ),
-            SizedBox(height: 12),
             Text(
               'Penjualan',
               style: GoogleFonts.inter(
