@@ -217,6 +217,7 @@ class _OrderPageState extends State<OrderPage> {
                       SnackBar(
                         content: Text('Silakan pilih tiket terlebih dahulu'),
                         behavior: SnackBarBehavior.floating,
+                        showCloseIcon: true,
                       ),
                     );
                   } else {

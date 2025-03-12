@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiket_wisata/constants/color.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:tiket_wisata/pages/splash_screen.dart';
+import '../widgets/dialogs/qris_dialog.dart';
 
 class DetailOrderPage extends StatefulWidget {
   final List<Map<String, dynamic>> selectedTickets;
@@ -18,7 +21,17 @@ class DetailOrderPage extends StatefulWidget {
 
 class _DetailOrderPageState extends State<DetailOrderPage> {
   // Track selected payment method
-  String selectedPaymentMethod = 'QRIS'; // Default selected method
+  String selectedPaymentMethod = 'QRIS';
+  int paymentMethodIndex = 0;
+
+  List dialogPayment = [
+    Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      shadowColor: MyColors.ternary,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +51,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
           'Detail Pesanan',
           style: GoogleFonts.inter(
             fontWeight: FontWeight.w600,
-            color: Colors.black,
+            color: MyColors.ternary,
             fontSize: 16,
           ),
         ),
@@ -61,7 +74,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: MyColors.ternary,
                             blurRadius: 4,
                             offset: Offset(0, 2),
                           ),
@@ -173,18 +186,16 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle process payment with selectedPaymentMethod
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Pembayaran dengan $selectedPaymentMethod berhasil',
-                          ),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
+                      if (selectedPaymentMethod == 'QRIS') {
+                        showDialog(
+                          context: context,
+                          builder:
+                              (context) => qrisDialog(),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: MyColors.secondary,
+                      backgroundColor: MyColors.ternary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -212,6 +223,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
 
     return GestureDetector(
       onTap: () {
+        (value) => selectedPaymentMethod;
         setState(() {
           selectedPaymentMethod = name;
         });
@@ -220,7 +232,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
         width: 80,
         height: 80,
         decoration: BoxDecoration(
-          color: isSelected ? MyColors.secondary : Colors.white,
+          color: isSelected ? MyColors.ternary : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? Colors.transparent : Colors.grey.shade300,
@@ -250,3 +262,6 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
     );
   }
 }
+
+
+
