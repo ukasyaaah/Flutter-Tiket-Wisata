@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tiket_wisata/constants/color.dart';
 import 'package:tiket_wisata/pages/splash_screen.dart';
-
+import 'package:tiket_wisata/pages/success_payment.dart';
 
 class qrisDialog extends StatelessWidget {
   const qrisDialog({super.key});
@@ -26,7 +26,7 @@ class qrisDialog extends StatelessWidget {
               onTap:
                   () => Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => SplashScreen()),
+                    MaterialPageRoute(builder: (context) => SuccessPayment()),
                   ),
               child: SizedBox(
                 height: 100.0,

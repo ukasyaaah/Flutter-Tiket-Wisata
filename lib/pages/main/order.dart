@@ -130,6 +130,7 @@ class _OrderPageState extends State<OrderPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   elevation: 2,
+                  shadowColor: MyColors.ternary,
                   margin: EdgeInsets.only(bottom: 12),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),

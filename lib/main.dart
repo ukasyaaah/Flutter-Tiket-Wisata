@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tiket Wisata',
       initialRoute: '/',
-      // theme: ThemeData(),
-      // home: SplashScreen(),
+     
       routes: {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginForm(),
